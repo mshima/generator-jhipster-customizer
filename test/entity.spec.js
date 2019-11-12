@@ -3,11 +3,13 @@ const fse = require('fs-extra');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
+const generatorsPath = require('../lib/jhipster-environment').generatorsPath;
+
 describe('Subgenerator entity of customizer JHipster blueprint', () => {
     describe('Sample test', () => {
         before(done => {
             helpers
-                .run('generator-jhipster/generators/entity')
+                .run(`${generatorsPath}/entity`)
                 .inTmpDir(dir => {
                     fse.copySync(path.join(__dirname, '../test/templates/ngx-blueprint'), dir);
                 })
