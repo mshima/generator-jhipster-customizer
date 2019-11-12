@@ -3,7 +3,7 @@ const debug = require('debug')('customizer:entity:i18n');
 
 const jhipsterEnv = require('../../lib/jhipster-environment');
 
-module.exports = class extends jhipsterEnv.generator('entity-i18n') {
+module.exports = class extends jhipsterEnv.generator('entity-i18n', { localOnly: true }) {
     constructor(args, opts) {
         debug(`Initializing entity-i18n blueprint: ${opts.context.name}`);
         super(args, opts);

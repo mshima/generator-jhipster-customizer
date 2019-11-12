@@ -3,7 +3,7 @@ const debug = require('debug')('customizer:common');
 
 const jhipsterEnv = require('../../lib/jhipster-environment');
 
-module.exports = class extends jhipsterEnv.generator('common') {
+module.exports = class extends jhipsterEnv.generator('common', { localOnly: true }) {
     constructor(args, opts) {
         debug('Initializing common blueprint');
         super(args, opts);

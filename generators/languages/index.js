@@ -3,7 +3,7 @@ const debug = require('debug')('customizer:languages');
 
 const jhipsterEnv = require('../../lib/jhipster-environment');
 
-module.exports = class extends jhipsterEnv.generator('languages') {
+module.exports = class extends jhipsterEnv.generator('languages', { localOnly: true }) {
     constructor(args, opts) {
         debug('Initializing languages blueprint');
         super(args, opts);
