@@ -18,7 +18,7 @@
     "lib",
     "bugfixer"
   ],
-  "main": "lib/jhipster-environment",
+  "main": "lib/environment",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mshima/generator-jhipster-customizer.git"

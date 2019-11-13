@@ -3,7 +3,7 @@ const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 const fse = require('fs-extra');
 
-const generatorsPath = require('../lib/jhipster-environment').generatorsPath;
+const generatorsPath = require('../lib/environment').generatorsPath;
 
 const getFilesForOptions = require('./jhipster_utils/utils').getFilesForOptions;
 const expectedFiles = require('./jhipster_utils/expected-files');

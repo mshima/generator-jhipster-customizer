@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 const debug = require('debug')('customizer:languages');
 
-const jhipsterEnv = require('../../lib/jhipster-environment');
+const jhipsterEnv = require('../../lib/environment');
 
 module.exports = class extends jhipsterEnv.generator('languages', { root: true }) {
     constructor(args, opts) {

@@ -1,4 +1,4 @@
-const generatorsPath = require('../../lib/jhipster-environment').generatorsPath;
+const generatorsPath = require('../../lib/environment').generatorsPath;
 
 // eslint-disable-next-line import/no-dynamic-require
 const constants = require(`${generatorsPath}/generator-constants`);
