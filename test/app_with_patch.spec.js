@@ -17,10 +17,10 @@ describe('JHipster generator', () => {
             helpers
                 .run(`${generatorsPath}/app`)
                 .inTmpDir(dir => {
-                    const fakeBlueprintModuleDir = path.join(dir, 'customizer/common/common');
-                    fse.ensureDirSync(fakeBlueprintModuleDir);
+                    const commonDir = path.join(dir, 'customizer/common/common');
+                    fse.ensureDirSync(commonDir);
                     fse.writeFileSync(
-                        path.join(fakeBlueprintModuleDir, 'package.js'),
+                        path.join(commonDir, 'package.json.js'),
                         `
 const file = context => 'package.json';
 
@@ -38,6 +38,10 @@ module.exports = {
 };
 `
                     );
+
+                    const serverDir = path.join(dir, 'customizer/user-jpa-identity');
+                    fse.ensureDirSync(serverDir);
+                    fse.copySync(path.join(__dirname, '../test/templates/user-jpa-identity'), serverDir);
                 })
                 .withOptions({
                     'from-cli': true,
@@ -109,7 +113,7 @@ module.exports = {
                     enableHibernateCache: true,
                     databaseType: 'sql',
                     devDatabaseType: 'h2Memory',
-                    prodDatabaseType: 'mysql',
+                    prodDatabaseType: 'postgresql',
                     enableTranslation: true,
                     nativeLanguage: 'en',
                     languages: ['fr'],
@@ -129,7 +133,7 @@ module.exports = {
             assert.file(expectedFiles.jwtServer);
             assert.file(expectedFiles.maven);
             assert.file(expectedFiles.dockerServices);
-            assert.file(expectedFiles.mysql);
+            assert.file(expectedFiles.postgresql);
             assert.file(expectedFiles.hibernateTimeZoneConfig);
             assert.file(
                 getFilesForOptions(angularFiles, {
@@ -142,6 +146,9 @@ module.exports = {
         });
         it('contains patch difference', () => {
             assert.fileContent('package.json', /"generator-jhipster": "latest"/);
+        });
+        it('contains identity', () => {
+            assert.fileContent('src/main/java/com/mycompany/myapp/domain/User.java', /GenerationType.IDENTITY/);
         });
         it('contains clientFramework with angularX value', () => {
             assert.fileContent('.yo-rc.json', /"clientFramework": "angularX"/);
