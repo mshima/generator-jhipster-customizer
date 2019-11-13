@@ -3,7 +3,7 @@ const debug = require('debug')('customizer:server');
 
 const jhipsterEnv = require('../../lib/jhipster-environment');
 
-module.exports = class extends jhipsterEnv.generator('server', { localOnly: true }) {
+module.exports = class extends jhipsterEnv.generator('server', { root: true }) {
     constructor(args, opts) {
         debug('Initializing server blueprint');
         super(args, opts);
@@ -13,7 +13,5 @@ module.exports = class extends jhipsterEnv.generator('server', { localOnly: true
         }
     }
 
-    get writing() {
-        return { ...super._writing(), applyPatcher: this.applyPatcher };
-    }
+    emptyFunc() {}
 };

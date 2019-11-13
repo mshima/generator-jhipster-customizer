@@ -3,7 +3,7 @@ const debug = require('debug')('customizer:entity:client');
 
 const jhipsterEnv = require('../../lib/jhipster-environment');
 
-module.exports = class extends jhipsterEnv.generator('entity-client', { localOnly: true }) {
+module.exports = class extends jhipsterEnv.generator('entity-client', { root: true }) {
     constructor(args, opts) {
         debug(`Initializing entity-client blueprint: ${opts.context.name}`);
         super(args, opts);
@@ -13,7 +13,5 @@ module.exports = class extends jhipsterEnv.generator('entity-client', { localOnl
         }
     }
 
-    get writing() {
-        return { ...super._writing(), applyPatcher: this.applyPatcher };
-    }
+    emptyFunc() {}
 };

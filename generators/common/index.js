@@ -3,7 +3,7 @@ const debug = require('debug')('customizer:common');
 
 const jhipsterEnv = require('../../lib/jhipster-environment');
 
-module.exports = class extends jhipsterEnv.generator('common', { localOnly: true }) {
+module.exports = class extends jhipsterEnv.generator('common', { root: true }) {
     constructor(args, opts) {
         debug('Initializing common blueprint');
         super(args, opts);
@@ -13,7 +13,5 @@ module.exports = class extends jhipsterEnv.generator('common', { localOnly: true
         }
     }
 
-    get writing() {
-        return { ...super._writing(), applyPatcher: this.applyPatcher };
-    }
+    emptyFunc() {}
 };

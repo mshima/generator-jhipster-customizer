@@ -3,7 +3,7 @@ const debug = require('debug')('customizer:spring-controller');
 
 const jhipsterEnv = require('../../lib/jhipster-environment');
 
-module.exports = class extends jhipsterEnv.generator('spring-controller', { localOnly: true }) {
+module.exports = class extends jhipsterEnv.generator('spring-controller', { root: true }) {
     constructor(args, opts) {
         debug('Initializing spring-controller blueprint');
         super(args, opts);
@@ -13,7 +13,5 @@ module.exports = class extends jhipsterEnv.generator('spring-controller', { loca
         }
     }
 
-    get writing() {
-        return { ...super._writing(), applyPatcher: this.applyPatcher };
-    }
+    emptyFunc() {}
 };
