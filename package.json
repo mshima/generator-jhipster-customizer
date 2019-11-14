@@ -16,7 +16,7 @@
   "files": [
     "generators",
     "lib",
-    "bugfixer"
+    "improver"
   ],
   "main": "lib/environment",
   "repository": {
