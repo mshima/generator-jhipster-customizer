@@ -47,11 +47,30 @@ yarn global upgrade generator-jhipster-customizer
 
 # Usage
 
-To use this blueprint, run the below command
+## To use this blueprint, run the below command
 
 ```bash
 jhipster --blueprint customizer
 ```
+
+This will look for patches located at the `customizer` folder with the name: `customizer/${generator_name}/**/*.js` and `customizer/${feature_name}/${generator_name}/**/*.js`.
+Features with name of the generator can conflict.
+
+## Running a patch from https://github.com/mshima/customizer-repository
+
+```bash
+jhipster --blueprint customizer --customizers one_sequence_per_entity,template
+```
+
+This will copy `one_sequence_per_entity` and `template` folders from the repository to customizer folder if they don't already exist.
+
+## Creating a patch
+
+```bash
+jhipster --blueprint customizer --customizers template
+```
+
+And use `customizer/template/*` as templates.
 
 # License
 
