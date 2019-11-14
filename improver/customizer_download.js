@@ -3,6 +3,19 @@ const fse = require('fs-extra');
 const path = require('path');
 const repo = require('github-download-parts');
 
+const generatorNames = [
+    'client',
+    'common',
+    'entity',
+    'entity-client',
+    'entity-i18n',
+    'entity-server',
+    'languages',
+    'server',
+    'spring-controller',
+    'spring-service'
+];
+
 function extend(Superclass) {
     return class GeneratorExtender extends Superclass {
         constructor(args, opts) {
@@ -12,6 +25,9 @@ function extend(Superclass) {
                 let customizers = this.options.customizers.split(',');
                 customizers = this._.uniq(customizers);
                 customizers.forEach(customizer => {
+                    if (generatorNames.includes(customizer)) {
+                        this.error(`Customizer ${customizer} conflicts with generator name`);
+                    }
                     this.log.info(`Loading customizer ${customizer}`);
                     const targetDir = `customizer/${customizer}`;
                     if (fs.existsSync(path.resolve(targetDir))) {
