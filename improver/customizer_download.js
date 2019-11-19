@@ -21,16 +21,18 @@ function extend(Superclass) {
         constructor(args, opts) {
             super(args, opts);
 
-            if (this.options.customizers && !opts.configOptions.doneDownloadCustomizer) {
-                let customizers = this.options.customizers.split(',');
+            if (!opts.configOptions.doneDownloadCustomizer && (this.options.customizers || this.config.get('customizers'))) {
+                let customizers = this.config.get('customizers') || [];
+                customizers = customizers.concat(this.options.customizers.split(','));
                 customizers = this._.uniq(customizers);
+                this.log.info(`${customizers}`);
                 customizers.forEach(customizer => {
                     if (generatorNames.includes(customizer)) {
                         this.error(`Customizer ${customizer} conflicts with generator name`);
                     }
                     this.log.info(`Loading customizer ${customizer}`);
                     const targetDir = `customizer/${customizer}`;
-                    if (fs.existsSync(path.resolve(targetDir))) {
+                    if (!this.options.forceDownloadCustomizers && fs.existsSync(path.resolve(targetDir))) {
                         this.log.info(`Customizer ${customizer} found at ${targetDir}`);
                         return;
                     }
@@ -38,7 +40,7 @@ function extend(Superclass) {
                     const done = this.async();
                     repo('mshima/customizer-repository', targetDir, customizer)
                         .then(() => {
-                            this.log.info(`Customizer ${customizer} downloaded`);
+                            this.log.info(`Customizer ${customizer} downloaded, you may need to reinitialize the generatorion process.`);
                             done();
                         })
                         .catch(error => {
@@ -46,6 +48,7 @@ function extend(Superclass) {
                             done();
                         });
                 });
+                this.blueprintConfig.set('customizers', customizers);
                 opts.configOptions.doneDownloadCustomizer = true;
             }
         }
