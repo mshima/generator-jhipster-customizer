@@ -1,6 +1,6 @@
 {
   "name": "generator-jhipster-customizer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Easily customize jhipster project and create blueprints.",
   "keywords": [
     "yeoman-generator",
