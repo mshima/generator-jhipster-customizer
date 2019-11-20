@@ -5,7 +5,7 @@
 # Introduction
 
 Easiest way to customize jhipster applications or to create blueprints.
-This blueprint will look for patches at the the customizer folder on the root of your project.
+This blueprint will look for patches at the customizer folder on the root of your project.
 
 This is a [JHipster](https://www.jhipster.tech/) blueprint, that is meant to be used in a JHipster application.
 
@@ -59,18 +59,20 @@ Features with name of the generator can conflict.
 ## Running a patch from https://github.com/mshima/customizer-repository
 
 ```bash
-jhipster --blueprint customizer --customizers one_sequence_per_entity,template
+jhipster --blueprint customizer --customizers one_sequence_per_entity,fix_reproducibility
 ```
 
-This will copy `one_sequence_per_entity` and `template` folders from the repository to customizer folder if they don't already exist.
+This will copy `one_sequence_per_entity` and `fix_reproducibility` folders from the repository to customizer folder if they don't already exist.
 
 ## Creating a patch
 
+This is a recent project, a good howto or template is missing, use one off existing patches at the [repository](https://github.com/mshima/customizer-repository) as template.
+
 ```bash
-jhipster --blueprint customizer --customizers template
+jhipster --blueprint customizer --customizers one_sequence_per_entity,fix_reproducibility
 ```
 
-And use `customizer/template/*` as templates.
+And use `customizer/{one_sequence_per_entity|fix_reproducibility}/*` as templates.
 
 # License
 
