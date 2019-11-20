@@ -21,8 +21,9 @@ function extend(Superclass) {
         constructor(args, opts) {
             super(args, opts);
 
-            if (!opts.configOptions.doneDownloadCustomizer && (this.options.customizers || this.config.get('customizers'))) {
-                let customizers = this.config.get('customizers') || [];
+            this.customizerConfig = this._getStorage('generator-jhipster-customizer');
+            if (!opts.configOptions.doneDownloadCustomizer && (this.options.customizers || this.customizerConfig.get('customizers'))) {
+                let customizers = this.customizerConfig.get('customizers') || [];
                 customizers = customizers.concat(this.options.customizers.split(','));
                 customizers = this._.uniq(customizers);
                 this.log.info(`${customizers}`);
@@ -48,7 +49,7 @@ function extend(Superclass) {
                             done();
                         });
                 });
-                this.blueprintConfig.set('customizers', customizers);
+                this.customizerConfig.set('customizers', customizers);
                 opts.configOptions.doneDownloadCustomizer = true;
             }
         }
