@@ -66,7 +66,7 @@ This will copy `one_sequence_per_entity` and `fix_reproducibility` folders from 
 
 ## Creating a patch
 
-This is a recent project, a good howto or template is missing, use one off existing patches at the [repository](https://github.com/mshima/customizer-repository) as template.
+This is a recent project, a good howto or template is missing, use one of existing patches at the [repository](https://github.com/mshima/customizer-repository) as template.
 
 ```bash
 jhipster --blueprint customizer --customizers one_sequence_per_entity,fix_reproducibility
