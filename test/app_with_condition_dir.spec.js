@@ -12,7 +12,7 @@ const expectedFiles = require('./jhipster_utils/expected-files');
 const angularFiles = require(`${generatorsPath}/client/files-angular`).files;
 
 describe('JHipster generator', () => {
-    describe('With patch', () => {
+    describe('With disabled patches', () => {
         before(done => {
             helpers
                 .run(`${generatorsPath}/app`)
