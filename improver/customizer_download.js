@@ -18,69 +18,121 @@ const generatorNames = [
     'spring-service'
 ];
 
+const verifyName = function(generator, name) {
+    if (generatorNames.includes(name)) {
+        generator.error(`Customizer ${name} conflicts with generator name`);
+    }
+};
+
+const verifyDest = function(generator, feature, src, dest) {
+    verifyName(generator, feature);
+    const same = dircompare.compareSync(src, dest, { compareContent: true }).same;
+
+    if (!same) {
+        generator.log.info(`Customizer ${feature} downloaded, you may need to reinitialize the generatorion process.`);
+        // Move old file to tmp dir.
+        fs.renameSync(dest, `${src}-old`);
+        fse.mkdirpSync(dest);
+
+        generator.queueMethod(
+            function() {
+                this.error('One or more customizer has been updated, please run again');
+            },
+            'finishedDownload',
+            'initializing'
+        );
+    } else {
+        generator.log.info(`Customizer ${feature} downloaded, didn't changed`);
+    }
+    return same;
+};
+
 function extend(Superclass) {
     return class GeneratorExtender extends Superclass {
         constructor(args, opts) {
             super(args, opts);
 
-            this.customizerConfig = this.customizerConfig || this._getStorage('generator-jhipster-customizer');
-            if (!opts.configOptions.doneDownloadCustomizer && (this.options.customizers || this.customizerConfig.get('customizers'))) {
-                let customizers = this.customizerConfig.get('customizers') || [];
-                customizers = customizers.concat(this.options.customizers.split(','));
+            debug('Starting customizer download');
+            const customizerConfig = this._getStorage('generator-jhipster-customizer');
+            if (!opts.configOptions.doneDownloadCustomizer && (this.options.customizers || customizerConfig.get('customizers'))) {
+                debug('Starting customizer download %o', this.options.customizers);
+                let customizers = customizerConfig.get('customizers') || [];
+                debug('Starting customizer download %o', customizers);
+                if (this.options.customizers) {
+                    const split = this.options.customizers.split('::');
+                    split.forEach(name => {
+                        const split2 = name.split(',');
+                        const url = this._.first(split2);
+                        if (url.includes(':')) {
+                            split2.shift();
+                            const found = customizers.find(c1 => c1.url === url);
+                            if (found) {
+                                found.customizers = this._.uniq(found.customizers.concat(split2));
+                            } else {
+                                customizers.push({ url, customizers: split2 });
+                            }
+                        } else {
+                            customizers = customizers.concat(split2);
+                        }
+                    });
+                }
                 customizers = this._.uniq(customizers);
                 this.log.info(`${customizers}`);
                 fse.ensureDirSync(path.resolve('customizer'));
-                customizers.forEach(customizer => {
-                    if (generatorNames.includes(customizer)) {
-                        this.error(`Customizer ${customizer} conflicts with generator name`);
-                    }
+
+                customizerConfig.set('customizers', customizers);
+
+                const baseCustomizers = customizers.filter(c1 => typeof c1 !== 'object');
+                const eachCustomizer = customizers.filter(c1 => typeof c1 === 'object');
+                eachCustomizer.unshift({ customizers: baseCustomizers });
+
+                debug('%o', eachCustomizer);
+                eachCustomizer.forEach(customizer => {
                     this.log.info(`Loading customizer ${customizer}`);
-                    const targetDir = `customizer/${customizer}`;
-                    if (!this.options.forceDownloadCustomizers && fs.existsSync(path.resolve(targetDir))) {
-                        debug(`Customizer ${customizer} found at ${targetDir}`);
+                    const missing = customizer.customizers.filter(feature => {
+                        const targetDir = `customizer/${feature}`;
+                        if (!this.options.forceDownloadCustomizers && fs.existsSync(path.resolve(targetDir))) {
+                            debug(`Customizer ${feature} found at ${targetDir}`);
+                            return false;
+                        }
+                        return true;
+                    });
+                    if (!missing) {
                         return;
                     }
-                    this.queueMethod(this._downloadCustomizers.bind(this, customizer, targetDir), 'downloadCustomizers', 'initializing');
+                    this.queueMethod(this._downloadCustomizers.bind(this, customizer), 'downloadCustomizers', 'initializing');
                 });
-                this.customizerConfig.set('customizers', customizers);
                 opts.configOptions.doneDownloadCustomizer = true;
             }
+            debug('Done customizer download');
         }
 
-        async _downloadCustomizers(dir, targetDir) {
+        async _downloadCustomizers(customizer) {
             const self = this;
+            const customizers = customizer.customizers;
+            const first = customizers.shift();
+            const src = customizer.url ? `${customizer.url}/${first}` : `mshima/customizer-repository/${first}`;
             try {
                 let same = true;
-                const src = dir.includes(':') ? dir : `mshima/customizer-repository/${dir}`;
                 await fetchRepoDir(
-                    { src, dir: targetDir },
+                    { src, dir: `customizer/${first}` },
                     {
                         replace: true,
                         onCopyStart(src, dest) {
-                            const res = dircompare.compareSync(src, dest, { compareContent: true });
-                            same = res.same;
-                            if (!same) {
-                                self.log.info(`Customizer ${dir} downloaded, you may need to reinitialize the generatorion process.`);
-                                fse.mkdirpSync('backup-customizer');
-                                // Move old file to tmp dir.
-                                fs.renameSync(dest, `${src}-old`);
-                                fse.mkdirpSync(dest);
+                            same = same && verifyDest(self, first, src, dest);
 
-                                self.queueMethod(
-                                    function() {
-                                        this.error('One or more customizer has been updated, please run again');
-                                    },
-                                    'finishedDownload',
-                                    'initializing'
-                                );
-                            } else {
-                                self.log.info(`Customizer ${dir} downloaded, didn't changed`);
-                            }
+                            const srcDirname = path.dirname(src);
+                            const destDirname = path.dirname(dest);
+                            customizers.forEach(feature => {
+                                const isSame = verifyDest(self, feature, `${srcDirname}/${feature}`, `${destDirname}/${feature}`);
+                                fse.copySync(`${srcDirname}/${feature}`, `${destDirname}/${feature}`);
+                                same = same && isSame;
+                            });
                         }
                     }
                 );
             } catch (error) {
-                this.error(`Error downloading ${dir}, ${error}`);
+                this.error(`Error downloading ${src}, ${error}`);
             }
         }
     };
