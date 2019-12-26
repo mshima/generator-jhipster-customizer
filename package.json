@@ -27,6 +27,7 @@
     "chalk": "^2.4.2",
     "debug": "^3.2.6",
     "dir-compare": "^1.8.0",
+    "ejs": "^3.0.1",
     "fetch-repo-dir": "^1.0.1",
     "fs-extra": "^7.0.1",
     "glob": "^7.1.3",
