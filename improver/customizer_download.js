@@ -26,12 +26,15 @@ const verifyName = function(generator, name) {
 
 const verifyDest = function(generator, feature, src, dest) {
     verifyName(generator, feature);
-    const same = dircompare.compareSync(src, dest, { compareContent: true }).same;
+    const destExists = fs.existsSync(dest);
+    const same = destExists && dircompare.compareSync(src, dest, { compareContent: true }).same;
 
     if (!same) {
         generator.log.info(`Customizer ${feature} downloaded, you may need to reinitialize the generatorion process.`);
         // Move old file to tmp dir.
-        fs.renameSync(dest, `${src}-old`);
+        if (destExists) {
+            fs.renameSync(dest, `${src}-old`);
+        }
         fse.mkdirpSync(dest);
 
         generator.queueMethod(
@@ -88,7 +91,7 @@ function extend(Superclass) {
 
                 debug('%o', eachCustomizer);
                 eachCustomizer.forEach(customizer => {
-                    this.log.info(`Loading customizer ${customizer}`);
+                    this.log.info('Loading customizer %o', customizer);
                     const missing = customizer.customizers.filter(feature => {
                         const targetDir = `customizer/${feature}`;
                         if (!this.options.forceDownloadCustomizers && fs.existsSync(path.resolve(targetDir))) {
@@ -97,19 +100,19 @@ function extend(Superclass) {
                         }
                         return true;
                     });
-                    if (!missing) {
+                    if (!missing || missing.length === 0) {
                         return;
                     }
-                    this.queueMethod(this._downloadCustomizers.bind(this, customizer), 'downloadCustomizers', 'initializing');
+                    debug('Loading missing customizer %o', missing);
+                    this.queueMethod(this._downloadCustomizers.bind(this, customizer, missing), 'downloadCustomizers', 'initializing');
                 });
                 opts.configOptions.doneDownloadCustomizer = true;
             }
             debug('Done customizer download');
         }
 
-        async _downloadCustomizers(customizer) {
+        async _downloadCustomizers(customizer, customizers) {
             const self = this;
-            const customizers = customizer.customizers;
             const first = customizers.shift();
             const src = customizer.url ? `${customizer.url}/${first}` : `mshima/customizer-repository/${first}`;
             try {
