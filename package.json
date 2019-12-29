@@ -28,7 +28,7 @@
     "debug": "3.2.6",
     "dir-compare": "1.8.0",
     "ejs": "3.0.1",
-    "fetch-repo-dir": "1.0.1",
+    "fetch-repo-dir": "1.0.2",
     "fs-extra": "8.1.0",
     "glob": "7.1.6",
     "lodash": "4.17.13",
