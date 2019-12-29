@@ -24,7 +24,7 @@
     "url": "git+https://github.com/mshima/generator-jhipster-customizer.git"
   },
   "dependencies": {
-    "chalk": "2.4.2",
+    "chalk": "3.0.0",
     "debug": "3.2.6",
     "dir-compare": "1.8.0",
     "ejs": "3.0.1",
