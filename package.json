@@ -44,7 +44,7 @@
   "devDependencies": {
     "chai": "4.2.0",
     "ejs-lint": "0.3.0",
-    "eslint": "5.14.1",
+    "eslint": "5.16.0",
     "eslint-config-airbnb-base": "13.2.0",
     "eslint-config-prettier": "6.9.0",
     "eslint-plugin-import": "2.19.1",
