@@ -9,15 +9,20 @@ function extend(Superclass) {
         constructor(args, opts) {
             super(args, { ...opts, fromBlueprint: true }); // fromBlueprint variable is important
 
-            this.fromBlueprint = opts.fromBlueprint !== undefined ? opts.fromBlueprint : this.rootGeneratorName() !== 'generator-jhipster';
-            if (this.fromBlueprint) {
-                this.blueprintConfig = this.config;
-                this.config = this._getStorage('generator-jhipster');
+            // Patch incorporated at jhipster > 6.6.0
+            if (!this.blueprintConfig) {
+                this.fromBlueprint =
+                    opts.fromBlueprint !== undefined ? opts.fromBlueprint : this.rootGeneratorName() !== 'generator-jhipster';
+                if (this.fromBlueprint) {
+                    this.blueprintConfig = this.config;
+                    this.config = this._getStorage('generator-jhipster');
+                }
             }
         }
     };
 }
 
 module.exports = {
+    version: '<=6.6.0',
     extend
 };
