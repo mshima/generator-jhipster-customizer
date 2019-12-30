@@ -22,5 +22,6 @@ function extend(Superclass) {
 }
 
 module.exports = {
+    version: '<=6.6.0',
     extend
 };
