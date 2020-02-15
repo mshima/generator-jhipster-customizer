@@ -130,10 +130,13 @@ describe('Unit tests for needle-file', () => {
         it('#addContent()', function() {
             this.needleFile.write('<!-- jhipster-needle-start-some-name - xx xx --><!-- jhipster-needle-end-some-name -->');
             this.needleFile.addContent('jhipster-needle-start-some-name', ' aaa ');
-            this.needleFile.addContent('jhipster-needle-start-some-name', ' aaa ');
+            this.needleFile.addContent('jhipster-needle-start-some-name', ' aaa ', false);
 
             assert.ok(this.needleFile.read().includes(' aaa \n'));
             assert.ok(!this.needleFile.read().includes(' aaa \n aaa \n'));
+
+            this.needleFile.addContent('jhipster-needle-start-some-name', ' aaa ');
+            assert.ok(this.needleFile.read().includes(' aaa \n aaa \n'));
 
             this.needleFile.addContent('jhipster-needle-start-some-name', ' bbb \n ccc ');
             assert.ok(this.needleFile.read().includes(' aaa \n bbb \n ccc \n'));
