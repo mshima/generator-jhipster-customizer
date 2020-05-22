@@ -1,6 +1,6 @@
 const path = require('path');
 const os = require('os');
-const shelljs = require('shelljs');
+const fse = require('fs-extra');
 const assert = require('yeoman-assert');
 
 const Env = require('yeoman-environment');
@@ -60,8 +60,8 @@ function testInTemporaryDir(cb) {
   /* eslint-disable-next-line no-console */
   console.log(`current cwd: ${cwd}`);
   const temporaryDir = path.join(os.tmpdir(), 'jhitemp');
-  shelljs.rm('-rf', temporaryDir);
-  shelljs.mkdir('-p', temporaryDir);
+  fse.removeSync(temporaryDir);
+  fse.ensureDirSync(temporaryDir);
   process.chdir(temporaryDir);
   /* eslint-disable-next-line no-console */
   console.log(`New cwd: ${process.cwd()}`);
