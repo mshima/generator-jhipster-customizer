@@ -16,6 +16,8 @@ module.exports = {
         if (!this.configOptions) {
           this.error(`This is a JHipster blueprint and should be used only like ${chalk.yellow('jhipster --blueprint customizer')}`);
         }
+
+        this.sbsBlueprint = true;
       }
 
       emptyFunc() {}
