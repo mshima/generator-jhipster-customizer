@@ -10,7 +10,6 @@
       "no-negated-condition": "warn",
       "no-setter-return": "warn",
       "unicorn/no-fn-reference-in-iterator": "warn",
-      "unicorn/no-abusive-eslint-disable": "warn",
       "no-cond-assign": "warn",
       "unicorn/explicit-length-check": "warn"
     }
