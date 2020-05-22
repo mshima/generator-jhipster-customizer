@@ -19,7 +19,7 @@ jobs:
           semver -r =${{github.event.milestone.title}} $(semver -i minor $CURRENT_VERSION) $(semver -i patch $CURRENT_VERSION) $(semver -i major $CURRENT_VERSION)
       - name: Create tag
         run: |
-          git config --global user.email ""
+          git config --global user.email "marceloshima@gmail.com"
           git config --global user.name "GitHub Actions"
           npm version ${{github.event.milestone.title}}
           git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY"
