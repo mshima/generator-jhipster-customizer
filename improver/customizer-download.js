@@ -29,7 +29,9 @@ const verifyDest = function (generator, feature, src, dest) {
   const destExists = fs.existsSync(dest);
   const same = destExists && dircompare.compareSync(src, dest, {compareContent: true}).same;
 
-  if (!same) {
+  if (same) {
+    generator.log.info(`Customizer ${feature} downloaded, didn't changed`);
+  } else {
     generator.log.info(`Customizer ${feature} downloaded, you may need to reinitialize the generatorion process.`);
     // Move old file to tmp dir.
     if (destExists) {
@@ -45,8 +47,6 @@ const verifyDest = function (generator, feature, src, dest) {
       'finishedDownload',
       'initializing'
     );
-  } else {
-    generator.log.info(`Customizer ${feature} downloaded, didn't changed`);
   }
 
   return same;
