@@ -1,7 +1,7 @@
+/* eslint-disable max-nested-callbacks */
 const path = require('path');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
-// Const fse = require('fs-extra');
 
 const getFilesForOptions = require('./jhipster_utils/utils').getFilesForOptions;
 const expectedFiles = require('./jhipster_utils/expected-files');
