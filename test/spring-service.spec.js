@@ -7,16 +7,18 @@ const generatorsPath = require('../lib/environment').generatorsPath;
 
 describe('Subgenerator spring-service of customizer JHipster blueprint', () => {
   describe('Sample test', () => {
-    before(done => {
+    before(function () {
+      this.timeout(15000);
       helpers
-        .run(`${generatorsPath}/spring-service`)
+        .create('jhipster:spring-service')
+        .withLookups([{npmPaths: path.join(__dirname, '..', 'node_modules')}])
         .inTmpDir(dir => {
           fse.copySync(path.join(__dirname, '../test/templates/ngx-blueprint'), dir);
         })
         .withOptions({
           'from-cli': true,
           skipInstall: true,
-          blueprint: 'customizer',
+          blueprints: 'customizer',
           skipChecks: true
         })
         .withGenerators([
@@ -30,7 +32,7 @@ describe('Subgenerator spring-service of customizer JHipster blueprint', () => {
         .withPrompts({
           useInterface: false
         })
-        .on('end', done);
+        .run();
     });
 
     it('it works', () => {

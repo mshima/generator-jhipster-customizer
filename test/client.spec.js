@@ -2,18 +2,17 @@ const path = require('path');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
-const generatorsPath = require('../lib/environment').generatorsPath;
-
 describe('Subgenerator client of customizer JHipster blueprint', () => {
   describe('Sample test', () => {
-    before(function (done) {
+    before(function () {
       this.timeout(15000);
-      helpers
-        .run(`${generatorsPath}/client`)
+      return helpers
+        .create('jhipster:client')
+        .withLookups([{npmPaths: path.join(__dirname, '..', 'node_modules')}])
         .withOptions({
           'from-cli': true,
           skipInstall: true,
-          blueprint: 'customizer',
+          blueprints: 'customizer',
           skipChecks: true
         })
         .withGenerators([
@@ -38,7 +37,7 @@ describe('Subgenerator client of customizer JHipster blueprint', () => {
           buildTool: 'maven',
           rememberMeKey: '2bb60a80889aa6e6767e9ccd8714982681152aa5'
         })
-        .on('end', done);
+        .run();
     });
 
     it('it works', () => {

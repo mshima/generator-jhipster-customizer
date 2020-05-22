@@ -3,20 +3,20 @@ const fse = require('fs-extra');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
-const generatorsPath = require('../lib/environment').generatorsPath;
-
 describe('Subgenerator languages of customizer JHipster blueprint', () => {
   describe('Sample test', () => {
-    before(done => {
-      helpers
-        .run(`${generatorsPath}/languages`)
+    before(function () {
+      this.timeout(15000);
+      return helpers
+        .create('jhipster:languages')
+        .withLookups([{npmPaths: path.join(__dirname, '..', 'node_modules')}])
         .inTmpDir(dir => {
           fse.copySync(path.join(__dirname, '../test/templates/ngx-blueprint'), dir);
         })
         .withOptions({
           'from-cli': true,
           skipInstall: true,
-          blueprint: 'customizer',
+          blueprints: 'customizer',
           skipChecks: true
         })
         .withGenerators([
@@ -41,7 +41,7 @@ describe('Subgenerator languages of customizer JHipster blueprint', () => {
           buildTool: 'maven',
           rememberMeKey: '2bb60a80889aa6e6767e9ccd8714982681152aa5'
         })
-        .on('end', done);
+        .run();
     });
 
     it('it works', () => {

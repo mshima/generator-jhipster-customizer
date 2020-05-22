@@ -13,10 +13,11 @@ const angularFiles = require(`${generatorsPath}/client/files-angular`).files;
 
 describe('JHipster generator', () => {
   describe('With disabled patches', () => {
-    before(function (done) {
+    before(function () {
       this.timeout(20000);
-      helpers
-        .run(`${generatorsPath}/app`)
+      return helpers
+        .create('jhipster:app')
+        .withLookups([{npmPaths: path.join(__dirname, '..', 'node_modules')}, {packagePaths: path.join(__dirname, '..')}])
         .inTmpDir(dir => {
           const customizerDir = path.join(dir, 'customizer');
           fse.ensureDirSync(customizerDir);
@@ -27,60 +28,8 @@ describe('JHipster generator', () => {
           skipInstall: true,
           skipChecks: true,
           jhiPrefix: 'test',
-          blueprints: 'patcher'
+          blueprints: 'customizer'
         })
-        .withGenerators([
-          [
-            require('../generators/client'), // eslint-disable-line global-require
-            'jhipster-patcher:client',
-            path.join(__dirname, '../generators/client/index.js')
-          ],
-          [
-            require('../generators/common'), // eslint-disable-line global-require
-            'jhipster-patcher:common',
-            path.join(__dirname, '../generators/common/index.js')
-          ],
-          [
-            require('../generators/entity'), // eslint-disable-line global-require
-            'jhipster-patcher:entity',
-            path.join(__dirname, '../generators/entity/index.js')
-          ],
-          [
-            require('../generators/entity-client'), // eslint-disable-line global-require
-            'jhipster-patcher:entity-client',
-            path.join(__dirname, '../generators/entity-client/index.js')
-          ],
-          [
-            require('../generators/entity-i18n'), // eslint-disable-line global-require
-            'jhipster-patcher:entity-i18n',
-            path.join(__dirname, '../generators/entity-i18n/index.js')
-          ],
-          [
-            require('../generators/entity-server'), // eslint-disable-line global-require
-            'jhipster-patcher:entity-server',
-            path.join(__dirname, '../generators/entity-server/index.js')
-          ],
-          [
-            require('../generators/languages'), // eslint-disable-line global-require
-            'jhipster-patcher:languages',
-            path.join(__dirname, '../generators/languages/index.js')
-          ],
-          [
-            require('../generators/server'), // eslint-disable-line global-require
-            'jhipster-patcher:server',
-            path.join(__dirname, '../generators/server/index.js')
-          ],
-          [
-            require('../generators/spring-controller'), // eslint-disable-line global-require
-            'jhipster-patcher:spring-controller',
-            path.join(__dirname, '../generators/spring-controller/index.js')
-          ],
-          [
-            require('../generators/spring-service'), // eslint-disable-line global-require
-            'jhipster-patcher:spring-service',
-            path.join(__dirname, '../generators/spring-service/index.js')
-          ]
-        ])
         .withPrompts({
           baseName: 'jhipster',
           clientFramework: 'angularX',
@@ -102,7 +51,7 @@ describe('JHipster generator', () => {
           skipUserManagement: false,
           serverSideOptions: []
         })
-        .on('end', done);
+        .run();
     });
 
     it('creates expected default files for angularX', () => {
