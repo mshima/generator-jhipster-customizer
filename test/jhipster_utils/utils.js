@@ -3,7 +3,9 @@ const os = require('os');
 const shelljs = require('shelljs');
 const assert = require('yeoman-assert');
 
-const generatorsPath = require('../../lib/environment').generatorsPath;
+const Env = require('yeoman-environment');
+const packagePath = Env.lookupGenerator('jhipster:app', {packagePath: true, npmPaths: [path.join(__dirname, '..', '..', 'node_modules')]});
+const generatorsPath = `${packagePath}/generators`;
 
 // eslint-disable-next-line import/no-dynamic-require
 const Generator = require(`${generatorsPath}/generator-base`);
@@ -13,6 +15,7 @@ const constants = require(`${generatorsPath}/generator-constants`);
 const DOCKER_DIR = constants.DOCKER_DIR;
 
 module.exports = {
+  generatorsPath,
   getFilesForOptions,
   shouldBeV3DockerfileCompatible,
   getJHipsterCli,
