@@ -141,5 +141,13 @@ describe('Unit tests for needle-file', () => {
             this.needleFile.addContent('jhipster-needle-start-some-name', ' bbb \n ccc ');
             assert.ok(this.needleFile.read().includes(' aaa \n bbb \n ccc \n'));
         });
+
+        it('#addContent() throws on not found', function() {
+            this.needleFile.write('<!-- jhipster-needle-start-some-name - xx xx --><!-- jhipster-needle-end-some-name -->');
+            assert.throws(
+                () => this.needleFile.addContent('jhipster-needle-start-some-name-foo', ' aaa '),
+                /^Error: Fail to add content, 'jhipster-needle-start-some-name-foo' was not found.$/
+            );
+        });
     });
 });
