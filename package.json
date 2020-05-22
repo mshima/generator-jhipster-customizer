@@ -5,9 +5,11 @@
   "keywords": [
     "yeoman-generator",
     "jhipster-blueprint",
-    "jhipster-5"
+    "jhipster-5",
+    "jhipster-6"
   ],
   "homepage": "https://github.com/mshima/generator-jhipster-customizer",
+  "license": "MIT",
   "author": {
     "name": "Marcelo Shima",
     "email": "marceloshima@gmail.com",
@@ -44,32 +46,18 @@
   "devDependencies": {
     "chai": "4.2.0",
     "ejs-lint": "0.3.0",
-    "eslint": "6.8.0",
-    "eslint-config-airbnb-base": "14.0.0",
-    "eslint-config-prettier": "6.9.0",
-    "eslint-plugin-import": "2.19.1",
-    "eslint-plugin-prettier": "3.1.2",
-    "jsdoc": "3.6.3",
-    "mocha": "6.2.2",
-    "prettier": "1.19.1",
+    "mocha": "^7.1.2",
     "shelljs": "0.8.3",
     "sinon": "8.0.2",
     "yeoman-assert": "3.1.1",
-    "yeoman-test": "2.0.0"
+    "yeoman-test": "2.0.0",
+    "xo": "^0.30.0"
   },
   "scripts": {
-    "lint": "eslint .",
-    "lint-fix": "npm run lint -- --fix",
-    "pretest": "npm run lint",
-    "test": "npm run test:unit -- test/*.spec.js",
-    "test:unit": "mocha --timeout 20000 --slow 0 --reporter spec",
-    "jsdoc": "jsdoc --configure jsdoc-conf.json",
-    "release": "git push && git push --tags && npm publish",
-    "release:patch": "npm version patch -a -m \"Update to %s\" && npm run release",
-    "release:minor": "npm version minor -a -m \"Update to %s\" && npm run release",
-    "release:major": "npm version major -a -m \"Update to %s\" && npm run release"
+    "pretest": "xo",
+    "test": "mocha",
+    "fix": "xo --fix"
   },
-  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/mshima/generator-jhipster-customizer/issues"
   }

@@ -1,10 +1,28 @@
 {
+  "@mshima/generator-author": {
+    "email": "marceloshima@gmail.com",
+    "name": "Marcelo Shima",
+    "url": "https://github.com/mshima"
+  },
+  "@mshima/generator-license": {
+    "license": "MIT"
+  },
+  "@mshima/generator-node-package": {
+    "enableMocha": true
+  },
+  "@mshima/generator-package-json": {
+    "description": "",
+    "homepage": "",
+    "keywords": null,
+    "name": "generator-jhipster-customizer",
+    "scope": ""
+  },
   "generator-jhipster-blueprint": {
     "promptValues": {
-      "githubName": "mshima",
-      "authorName": "Marcelo Shima",
       "authorEmail": "marceloshima@gmail.com",
-      "authorUrl": "https://github.com/mshima"
+      "authorName": "Marcelo Shima",
+      "authorUrl": "https://github.com/mshima",
+      "githubName": "mshima"
     }
   }
 }
