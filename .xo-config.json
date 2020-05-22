@@ -6,7 +6,7 @@
       "global-require": "error",
       "import/no-dynamic-require": "error",
       "no-console": "error",
-      "unicorn/filename-case": "warn",
+      "unicorn/filename-case": "off",
       "no-negated-condition": "warn",
       "no-unused-vars": "warn",
       "no-setter-return": "warn",
