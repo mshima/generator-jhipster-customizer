@@ -1,3 +1,3 @@
 module.exports = {
-    condition: false
+  condition: false
 };
