@@ -34,10 +34,8 @@
     "fs-extra": "8.1.0",
     "glob": "7.1.6",
     "lodash": "4.17.15",
-    "mem-fs-editor": "6.0.0",
     "require-dir-all": "0.4.15",
-    "semver": "7.1.1",
-    "yeoman-environment": "^2.8.1"
+    "semver": "7.1.1"
   },
   "peerDependencies": {
     "generator-jhipster": ">=6.9.0"
@@ -51,6 +49,7 @@
     "sinon": "8.0.2",
     "xo": "^0.30.0",
     "yeoman-assert": "3.1.1",
+    "yeoman-environment": "^2.10.2",
     "yeoman-test": "^2.6.0"
   },
   "scripts": {
