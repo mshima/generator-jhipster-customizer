@@ -3,8 +3,6 @@ const fse = require('fs-extra');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
-const generatorsPath = require('../lib/environment').generatorsPath;
-
 describe('Subgenerator spring-service of customizer JHipster blueprint', () => {
   describe('Sample test', () => {
     before(function () {

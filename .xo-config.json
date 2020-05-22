@@ -8,7 +8,6 @@
       "no-console": "error",
       "unicorn/filename-case": "off",
       "no-negated-condition": "warn",
-      "no-unused-vars": "warn",
       "no-setter-return": "warn",
       "unicorn/no-fn-reference-in-iterator": "warn",
       "unicorn/no-abusive-eslint-disable": "warn",
