@@ -3,21 +3,20 @@ const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 const fse = require('fs-extra');
 
-const generatorsPath = require('../lib/environment').generatorsPath;
-
 const getFilesForOptions = require('./jhipster_utils/utils').getFilesForOptions;
 const expectedFiles = require('./jhipster_utils/expected-files');
 
-// eslint-disable-next-line import/no-dynamic-require
-const angularFiles = require(`${generatorsPath}/client/files-angular`).files;
-
 describe('JHipster generator', () => {
   describe('With patch', () => {
+    let env;
     before(function () {
       this.timeout(20000);
       return helpers
         .create('jhipster:app')
         .withLookups([{npmPaths: path.join(__dirname, '..', 'node_modules')}, {packagePaths: path.join(__dirname, '..')}])
+        .withEnvironment(ctxEnv => {
+          env = ctxEnv;
+        })
         .inTmpDir(dir => {
           const commonDir = path.join(dir, 'customizer/common/common');
           fse.ensureDirSync(commonDir);
@@ -85,6 +84,11 @@ module.exports = {
       assert.file(expectedFiles.dockerServices);
       assert.file(expectedFiles.postgresql);
       assert.file(expectedFiles.hibernateTimeZoneConfig);
+
+      const packagePath = env.getPackagePath('jhipster:app');
+      // eslint-disable-next-line import/no-dynamic-require,global-require
+      const angularFiles = require(`${packagePath}/generators/client/files-angular`).files;
+
       assert.file(
         getFilesForOptions(angularFiles, {
           enableTranslation: true,
