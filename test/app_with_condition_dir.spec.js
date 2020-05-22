@@ -14,7 +14,7 @@ const angularFiles = require(`${generatorsPath}/client/files-angular`).files;
 describe('JHipster generator', () => {
   describe('With disabled patches', () => {
     before(function (done) {
-      this.timeout(15000);
+      this.timeout(20000);
       helpers
         .run(`${generatorsPath}/app`)
         .inTmpDir(dir => {
