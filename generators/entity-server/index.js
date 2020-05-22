@@ -8,7 +8,7 @@ const jhipsterEnv = require('../../lib/environment');
 
 module.exports = {
   createGenerator: env => {
-    return class extends jhipsterEnv.createJHipsterGenerator(generator, env, {root: true}) {
+    return class extends jhipsterEnv.createJHipsterGenerator(generator, env) {
       constructor(args, options) {
         debug(`Initializing ${generator} blueprint: ${options.context.name}`);
         super(args, options);
