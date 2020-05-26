@@ -34,6 +34,7 @@
     "fs-extra": "8.1.0",
     "glob": "7.1.6",
     "lodash": "4.17.15",
+    "pluralize": "^8.0.0",
     "require-dir-all": "0.4.15",
     "semver": "7.1.1"
   },
