@@ -1,5 +1,7 @@
 # generator-jhipster-customizer
-[![NPM version][npm-image]][npm-url] [![Dependency Status][daviddm-image]][daviddm-url]
+[![NPM version](https://img.shields.io/npm/v/generator-jhipster-customizer.svg)](https://npmjs.org/package/generator-jhipster-customizer)
+[![Node.js CI](https://github.com/mshima/generator-jhipster-customizer/workflows/Node.js%20CI/badge.svg)](https://github.com/mshima/generator-jhipster-customizer/actions?query=workflow%3A%22Node.js+CI%22)
+[![Dependency Status][daviddm-image]][daviddm-url]
 > JHipster blueprint, Easily customize jhipster project and create blueprints.
 
 # Introduction
@@ -43,7 +45,5 @@ This is a recent project, a good howto or template is missing, use one of existi
 Apache-2.0 © [Marcelo Shima](https://github.com/mshima)
 
 
-[npm-image]: https://img.shields.io/npm/v/generator-jhipster-customizer.svg
-[npm-url]: https://npmjs.org/package/generator-jhipster-customizer
 [daviddm-image]: https://david-dm.org/mshima/generator-jhipster-customizer.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/mshima/generator-jhipster-customizer
