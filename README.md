@@ -15,6 +15,14 @@ As this is a [JHipster](https://www.jhipster.tech/) blueprint, we expect you hav
 
 - [Installing JHipster](https://www.jhipster.tech/installation/)
 
+# Installation
+
+To install this blueprint:
+
+```bash
+npm install -g generator-jhipster-customizer
+```
+
 # Usage
 
 ## To use this blueprint, run the below command
@@ -26,23 +34,9 @@ jhipster --blueprints customizer
 This will look for patches located at the `customizer` folder with the name: `customizer/${generator_name}/**/*.js` and `customizer/${feature_name}/${generator_name}/**/*.js`.
 Features with name of the generator can conflict.
 
-## Running a patch from https://github.com/mshima/customizer-repository
-
-```bash
-jhipster --blueprints customizer --customizers one_sequence_per_entity,fix_reproducibility
-```
-
-This will copy `one_sequence_per_entity` and `fix_reproducibility` folders from the repository to customizer folder if they don't already exist.
-
 ## Creating a patch
 
 This is a recent project, a good howto or template is missing, use one of existing patches at the [repository](https://github.com/mshima/customizer-repository) as template.
-
-```bash
-jhipster --blueprint customizer --customizers one_sequence_per_entity,fix_reproducibility
-```
-
-And use `customizer/{one_sequence_per_entity|fix_reproducibility}/*` as templates.
 
 # License
 
