@@ -38,7 +38,7 @@ Features with name of the generator can conflict.
 
 ## Creating a patch
 
-There are some examples at [repository](https://github.com/mshima/customizer-repository).
+There are some examples at examples folder.
 
 # License
 

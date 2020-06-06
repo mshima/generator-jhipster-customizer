@@ -42,7 +42,7 @@ module.exports = {
 
           const serverDir = path.join(dir, 'customizer/user-jpa-identity');
           fse.ensureDirSync(serverDir);
-          fse.copySync(path.join(__dirname, '../test/templates/user-jpa-identity'), serverDir);
+          fse.copySync(path.join(__dirname, '../examples/user-jpa-identity'), serverDir);
         })
         .withOptions({
           'from-cli': true,
