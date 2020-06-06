@@ -6,8 +6,8 @@
 
 # Introduction
 
-Easiest way to customize jhipster applications or to create blueprints.
-This blueprint will look for patches at the customizer folder on the root of your project.
+Apply customizations to multiples jhipster projects.
+Can be used to create blueprints based on patches.
 
 This is a [JHipster](https://www.jhipster.tech/) blueprint, that is meant to be used in a JHipster application.
 
@@ -38,7 +38,7 @@ Features with name of the generator can conflict.
 
 ## Creating a patch
 
-This is a recent project, a good howto or template is missing, use one of existing patches at the [repository](https://github.com/mshima/customizer-repository) as template.
+There are some examples at [repository](https://github.com/mshima/customizer-repository).
 
 # License
 
