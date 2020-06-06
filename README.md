@@ -39,6 +39,7 @@ Features with name of the generator can conflict.
 ## Creating a patch
 
 There are some examples at examples folder.
+Just copy the feature to your project customizer folder.
 
 # License
 
