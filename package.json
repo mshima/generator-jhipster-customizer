@@ -1,6 +1,6 @@
 {
   "name": "generator-jhipster-customizer",
-  "version": "0.4.0-beta.0",
+  "version": "0.4.0",
   "description": "Apply customizations to multiple jhipster projects.",
   "keywords": [
     "jhipster-blueprint",
